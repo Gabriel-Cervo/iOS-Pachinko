@@ -20,12 +20,11 @@ class GameScene: SKScene {
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         
-        let bouncer = SKSpriteNode(imageNamed: "bouncer")
-        bouncer.position = CGPoint(x: 512, y: 0)
-        bouncer.physicsBody = SKPhysicsBody(circleOfRadius: bouncer.size.width / 2.0)
-        bouncer.physicsBody?.isDynamic = false // the object will still collide with other things, but it won't ever be moved as a result.
-        
-        addChild(bouncer)
+        var xPosition = 0
+        for _ in 0..<5 {
+            makeBouncer(at: CGPoint(x: xPosition, y: 0))
+            xPosition += 256
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -39,5 +38,14 @@ class GameScene: SKScene {
             
             addChild(ball)
         }
+    }
+    
+    func makeBouncer(at position: CGPoint) {
+        let bouncer = SKSpriteNode(imageNamed: "bouncer")
+        bouncer.position = position
+        bouncer.physicsBody = SKPhysicsBody(circleOfRadius: bouncer.size.width / 2.0)
+        bouncer.physicsBody?.isDynamic = false
+        
+        addChild(bouncer)
     }
 }
